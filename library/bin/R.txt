@@ -1,0 +1,1 @@
+int string ringtone_silent 0x7f020000
