@@ -21,10 +21,6 @@ local.properties
 # Eclipse project files
 .classpath
 .project
-
-# Eclipse project files
-.classpath
-.project
 .metadata
 .settings
 
