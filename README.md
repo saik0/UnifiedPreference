@@ -18,6 +18,8 @@ Features
 How to Use
 ==========
 
+ 1. Download the jar (below) and add to you projects lib folder **OR**
+    clone the repo and add the library project as a dependency
  1. Ensure the header strings are in your project's string resources.
  2. Create a new preference xml file for each heading (category)
  3. Create a headers xml file that enumerates them
@@ -39,6 +41,12 @@ Screenshots
 ===========
 
 ![Framed artwork](https://raw.github.com/saik0/UnifiedPreference/master/images/framed_all.png "Framed artwork")
+
+
+Download
+========
+
+[Latest development build v0.0.1](https://github.com/downloads/saik0/UnifiedPreference/unifiedpreference-0.0.1.jar)
 
 License
 =======
