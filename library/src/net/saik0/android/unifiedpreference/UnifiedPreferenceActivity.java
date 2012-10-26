@@ -94,10 +94,8 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
 			addPreferencesFromResource(pref.getLayout());
 		}
 
-		// Set summaries		
-		for (int i = 0; i < screen.getPreferenceCount(); i++) {
-			bindPreferenceSummaryToValue(screen.getPreference(i));
-		}
+		// Bind summaries
+		bindPreferenceSummariesToValues();
 	}
 
 	/** {@inheritDoc} */
@@ -135,6 +133,17 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
 		if (!isSimplePreferences(this)) {
 			loadHeadersFromResource(getHeaders(), target);
 		}
+	}
+
+	/**
+	 * Bind the summaries of EditText/List/Dialog/Ringtone preferences
+	 * to their values. When their values change, their summaries are
+	 * updated to reflect the new value, per the Android Design
+	 * guidelines.
+	 */
+	@SuppressWarnings("deprecation")
+	private void bindPreferenceSummariesToValues() {
+		bindAllPreferenceSummariesToValues(this.getPreferenceScreen());
 	}
 
 	/**
@@ -204,18 +213,32 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
 	 * 
 	 * @see #sBindPreferenceSummaryToValueListener
 	 */
-	private static void bindPreferenceSummaryToValue(Preference preference) {
+	protected static void bindPreferenceSummaryToValue(Preference preference) {
 		// Set the listener to watch for value changes		
 		preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
 		// Trigger the listener immediately with the preference's
 		// current value.
 		try {
-		sBindPreferenceSummaryToValueListener.onPreferenceChange(
-				preference,
-				preference.getSharedPreferences().getString(
-						preference.getKey(), ""));
-		} catch (ClassCastException e) {}
+			sBindPreferenceSummaryToValueListener.onPreferenceChange(
+					preference,
+					preference.getSharedPreferences().getString(
+							preference.getKey(), ""));
+		} catch (ClassCastException e) {
+			// This preference does not have a String value, do nothing
+		}
+	}
+
+	/**
+	 * Iterate over every preference and bind the summary to it's value.
+	 * This is the default behavior for Activities and Fragments.
+	 *
+	 * @param screen The PreferenceScreen
+	 */
+	protected static void bindAllPreferenceSummariesToValues(PreferenceScreen screen) {
+		for (int i = 0; i < screen.getPreferenceCount(); i++) {
+			bindPreferenceSummaryToValue(screen.getPreference(i));
+		}
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -226,15 +249,17 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(getUnifiedPreference().getLayout());
+			bindPreferenceSummariesToValues();
+		}
 
-			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
-			// to their values. When their values change, their summaries are
-			// updated to reflect the new value, per the Android Design
-			// guidelines.
-			PreferenceScreen screen = this.getPreferenceScreen();
-			for (int i = 0; i < screen.getPreferenceCount(); i++) {
-				bindPreferenceSummaryToValue(screen.getPreference(i));
-			}
+		/**
+		 * Bind the summaries of EditText/List/Dialog/Ringtone preferences
+		 * to their values. When their values change, their summaries are
+		 * updated to reflect the new value, per the Android Design
+		 * guidelines.
+		 */
+		private void bindPreferenceSummariesToValues() {
+			UnifiedPreferenceActivity.bindAllPreferenceSummariesToValues(this.getPreferenceScreen());
 		}
 	}
 }
