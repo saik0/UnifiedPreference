@@ -40,7 +40,7 @@ Author
 Screenshots
 ===========
 
-![Framed artwork](https://raw.github.com/saik0/UnifiedPreference/master/images/framed_all.png "Framed artwork")
+![Framed artwork](https://raw.github.com/saik0/UnifiedPreference/website/images/framed_all.png "Framed artwork")
 
 
 Download
