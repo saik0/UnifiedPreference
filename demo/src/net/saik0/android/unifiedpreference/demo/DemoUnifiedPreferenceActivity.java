@@ -24,9 +24,9 @@ import android.os.Bundle;
 import net.saik0.android.unifiedpreference.demo.R;
 import net.saik0.android.unifiedpreference.UnifiedPreference;
 import net.saik0.android.unifiedpreference.UnifiedPreference.Fragment;
-import net.saik0.android.unifiedpreference.UnifiedPreferenceActivity;
+import net.saik0.android.unifiedpreference.UnifiedSherlockPreferenceActivity;
 
-public class DemoUnifiedPreferenceActivity extends UnifiedPreferenceActivity {
+public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActivity {
 	private static UnifiedPreference generalPreferences;
 	private static UnifiedPreference notificationPreferences;
 	private static UnifiedPreference dataSyncPreferences;

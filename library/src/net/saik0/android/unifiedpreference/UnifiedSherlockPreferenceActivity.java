@@ -19,7 +19,7 @@ package net.saik0.android.unifiedpreference;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
 
 import java.util.List;
@@ -35,7 +35,7 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
+public abstract class UnifiedSherlockPreferenceActivity extends SherlockPreferenceActivity {
 	protected abstract List<UnifiedPreference> getPreferenceList();
 	protected abstract int getHeaders();
 
