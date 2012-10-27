@@ -16,6 +16,11 @@
 
 package net.saik0.android.unifiedpreference;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceFragment;
+
 public class UnifiedPreference {
 	private final int mHeader;
 	private final int mLayout;
@@ -31,5 +36,27 @@ public class UnifiedPreference {
 
 	public int getLayout() {
 		return mLayout;
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public abstract static class Fragment extends PreferenceFragment {
+		public abstract UnifiedPreference getUnifiedPreference();
+
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(getUnifiedPreference().getLayout());
+			bindPreferenceSummariesToValues();
+		}
+
+		/**
+		 * Bind the summaries of EditText/List/Dialog/Ringtone preferences
+		 * to their values. When their values change, their summaries are
+		 * updated to reflect the new value, per the Android Design
+		 * guidelines.
+		 */
+		protected void bindPreferenceSummariesToValues() {
+			UnifiedPreferenceUtils.bindAllPreferenceSummariesToValues(this.getPreferenceScreen());
+		}
 	}
 }

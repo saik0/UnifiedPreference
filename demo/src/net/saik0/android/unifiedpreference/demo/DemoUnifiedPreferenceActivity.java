@@ -23,6 +23,7 @@ import android.os.Bundle;
 
 import net.saik0.android.unifiedpreference.demo.R;
 import net.saik0.android.unifiedpreference.UnifiedPreference;
+import net.saik0.android.unifiedpreference.UnifiedPreference.Fragment;
 import net.saik0.android.unifiedpreference.UnifiedPreferenceActivity;
 
 public class DemoUnifiedPreferenceActivity extends UnifiedPreferenceActivity {
@@ -42,30 +43,30 @@ public class DemoUnifiedPreferenceActivity extends UnifiedPreferenceActivity {
 	}
 	
 	@Override
-	public List<UnifiedPreference> getPreferenceList() {
+	protected List<UnifiedPreference> getPreferenceList() {
 		return mPreferences;
 	}
 
 	@Override
-	public int getHeaders() {
+	protected int getHeaders() {
 		return R.xml.pref_headers;
 	}
 	
-	public static class GeneralPreferenceFragment extends UnifiedPreferenceFragment {
+	public static class GeneralPreferenceFragment extends UnifiedPreference.Fragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return generalPreferences;
 		}
 	}
 
-	public static class NotificationPreferenceFragment extends UnifiedPreferenceFragment {
+	public static class NotificationPreferenceFragment extends UnifiedPreference.Fragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return notificationPreferences;
 		}
 	}
 
-	public static class DataSyncPreferenceFragment extends UnifiedPreferenceFragment {
+	public static class DataSyncPreferenceFragment extends UnifiedPreference.Fragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return dataSyncPreferences;
