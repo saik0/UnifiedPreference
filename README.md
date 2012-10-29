@@ -1,5 +1,5 @@
 UnifiedPreference
-================
+=================
 
 UnifiedPreference is a library for working with all versions of the 
 Android Preference package from API v4 and up.
@@ -9,11 +9,12 @@ Features
 
  * Easy to use
  * Takes care of most of the boilerplate code
- * Very lightweight, only ~5k!
+ * Tiny, only ~5k!
  * Use a single pane for phones, or headers and fragments for tablets
  * Binds preference values to summaries according to Android Design 
    Guidelines
  * Translated to 50 locales (imported from AOSP internal strings)
+ * Uses ActionBarSherlock (optional)
 
 How to Use
 ==========
@@ -47,6 +48,14 @@ Download
 ========
 
 [Latest development build v0.0.1](https://github.com/downloads/saik0/UnifiedPreference/unifiedpreference-0.0.1.jar)
+
+FAQ
+===
+
+When is a two-pane layout used?
+
+ > When com.android.internal.R.bool.preferences_prefer_dual_pane evaluates to true. In AOSP this is true for sw720dp
+   but this may vary by OEM or third party ROM.
 
 License
 =======
