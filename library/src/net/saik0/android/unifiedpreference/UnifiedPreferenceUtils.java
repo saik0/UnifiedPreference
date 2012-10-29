@@ -17,7 +17,11 @@ import android.preference.RingtonePreference;
 import android.preference.TwoStatePreference;
 import android.text.TextUtils;
 
-public class UnifiedPreferenceUtils {
+public final class UnifiedPreferenceUtils {
+
+	private UnifiedPreferenceUtils() {
+		// This class cannot be instantiated
+	}
 
 	/**
 	 * Determines whether the simplified settings UI should be shown. This is
@@ -26,7 +30,7 @@ public class UnifiedPreferenceUtils {
 	 * an extra-large screen. In these cases, a single-pane "simplified"
 	 * settings UI should be shown.
 	 */
-	public static final boolean isSinglePane(PreferenceActivity activity) {
+	public static boolean isSinglePane(PreferenceActivity activity) {
 		return Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
 					|| !activity.onIsMultiPane()
 					|| activity.onIsHidingHeaders();
@@ -38,7 +42,7 @@ public class UnifiedPreferenceUtils {
 	 * shown.
 	 */
 	@SuppressWarnings("deprecation")
-	public static final void getLegacyPreferencesScreen(PreferenceActivity activity, List<UnifiedPreference> prefs) {
+	public static void getLegacyPreferencesScreen(PreferenceActivity activity, List<UnifiedPreference> prefs) {
 		// In the simplified UI, fragments are not used at all and we instead
 		// use the older PreferenceActivity APIs.
 
@@ -119,7 +123,7 @@ public class UnifiedPreferenceUtils {
 	 *
 	 * @see #sBindPreferenceSummaryToValueListener
 	 */
-	private static final void bindPreferenceSummaryToValue(Preference preference) {
+	private static void bindPreferenceSummaryToValue(Preference preference) {
 		// Set the listener to watch for value changes
 		preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
@@ -141,7 +145,7 @@ public class UnifiedPreferenceUtils {
 	 *
 	 * @param screen The PreferenceScreen
 	 */
-	public static final void bindAllPreferenceSummariesToValues(PreferenceScreen screen) {
+	public static void bindAllPreferenceSummariesToValues(PreferenceScreen screen) {
 		for (int i = 0; i < screen.getPreferenceCount(); i++) {
 			bindPreferenceSummaryToValue(screen.getPreference(i));
 		}
