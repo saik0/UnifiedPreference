@@ -23,7 +23,6 @@ import android.os.Bundle;
 
 import net.saik0.android.unifiedpreference.demo.R;
 import net.saik0.android.unifiedpreference.UnifiedPreference;
-import net.saik0.android.unifiedpreference.UnifiedPreference.Fragment;
 import net.saik0.android.unifiedpreference.UnifiedSherlockPreferenceActivity;
 
 public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActivity {
@@ -57,6 +56,11 @@ public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActi
 		public UnifiedPreference getUnifiedPreference() {
 			return generalPreferences;
 		}
+
+		@Override
+		public String getSharedPreferencesName() {
+			return null;
+		}
 	}
 
 	public static class NotificationPreferenceFragment extends UnifiedPreference.Fragment {
@@ -64,12 +68,22 @@ public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActi
 		public UnifiedPreference getUnifiedPreference() {
 			return notificationPreferences;
 		}
+
+		@Override
+		public String getSharedPreferencesName() {
+			return null;
+		}
 	}
 
 	public static class DataSyncPreferenceFragment extends UnifiedPreference.Fragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return dataSyncPreferences;
+		}
+
+		@Override
+		public String getSharedPreferencesName() {
+			return null;
 		}
 	}
 }
