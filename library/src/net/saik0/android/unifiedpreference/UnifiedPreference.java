@@ -41,10 +41,15 @@ public class UnifiedPreference {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public abstract static class Fragment extends PreferenceFragment {
 		public abstract UnifiedPreference getUnifiedPreference();
+		public abstract String getSharedPreferencesName();
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
+			String sharedPreferencesName = getSharedPreferencesName();
+			if(sharedPreferencesName != null) {
+				getPreferenceManager().setSharedPreferencesName(sharedPreferencesName);
+			}
 			addPreferencesFromResource(getUnifiedPreference().getLayout());
 			bindPreferenceSummariesToValues();
 		}
