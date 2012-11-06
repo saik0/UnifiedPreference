@@ -16,11 +16,8 @@
 
 package net.saik0.android.unifiedpreference;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-
 
 import java.util.List;
 
@@ -35,42 +32,73 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
+public abstract class UnifiedPreferenceActivity extends PreferenceActivity
+		implements UnifiedPreferenceContainer {
+
 	protected abstract List<UnifiedPreference> getPreferenceList();
 	protected abstract int getHeaders();
 
-	private Boolean mSinglePane;
+	private UnifiedPreferenceHelper mHelper = new UnifiedPreferenceHelper(this, getHeaders(), getPreferenceList()); 
 
+	/**
+	 * Returns the current name of the SharedPreferences file that preferences
+	 * managed by this will use.
+	 *
+	 * @return The name that can be passed to {@link Context#getSharedPreferences(String, int)}
+	 * @see UnifiedPreferenceHelper#getSharedPreferencesName()
+	 */
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		if (isSinglePane()) {
-			UnifiedPreferenceUtils.getLegacyPreferencesScreen(this, getPreferenceList());
-			bindPreferenceSummariesToValues();
-		}
+	public String getSharedPreferencesName() {
+		return mHelper.getSharedPreferencesName();
 	}
 
 	/**
-	 * Determines whether the simplified settings UI should be shown. This is
-	 * true if device doesn't have newer APIs like {@link PreferenceFragment},
-	 * or if forced via {@link onIsHidingHeaders}, or the device doesn't have
-	 * an extra-large screen. In these cases, a single-pane "simplified"
-	 * settings UI should be shown.
+	 * Sets the name of the SharedPreferences file that preferences managed by
+	 * this will use.
+	 *
+	 * @param The name of the SharedPreferences file.
+	 * @see UnifiedPreferenceHelper#setSharedPreferencesName()
 	 */
-	public final boolean isSinglePane() {
-		if (mSinglePane == null) {
-			mSinglePane = UnifiedPreferenceUtils.isSinglePane(this);
-		}
-		return mSinglePane.booleanValue();
+	@Override
+	public void setSharedPreferencesName(String sharedPreferencesName) {
+		mHelper.setSharedPreferencesName(sharedPreferencesName);
+	}
+
+	/**
+	 * Returns the current mode of the SharedPreferences file that preferences
+	 * managed by this will use.
+	 *
+	 * @return The mode that can be passed to {@link Context#getSharedPreferences(String, int)}
+	 * @see UnifiedPreferenceHelper#getSharedPreferencesMode()
+	 */
+	@Override
+	public int getSharedPreferencesMode() {
+		return mHelper.getSharedPreferencesMode();
+	}
+
+	/**
+	 * Sets the mode of the SharedPreferences file that preferences managed by
+	 * this will use.
+	 *
+	 * @param The mode of the SharedPreferences file.
+	 * @see UnifiedPreferenceHelper#setSharedPreferencesMode()
+	 */
+	@Override
+	public void setSharedPreferencesMode(int sharedPreferencesMode) {
+		mHelper.setSharedPreferencesMode(sharedPreferencesMode);
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mHelper.onPostCreate(savedInstanceState);
+	}
+
+	/** {@inheritDoc} */
+	@Override
 	public void onBuildHeaders(List<Header> target) {
-		if (!isSinglePane()) {
-			loadHeadersFromResource(getHeaders(), target);
-		}
+		mHelper.onBuildHeaders(target);
 	}
 
 	/**
@@ -79,8 +107,7 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity {
 	 * updated to reflect the new value, per the Android Design
 	 * guidelines.
 	 */
-	@SuppressWarnings("deprecation")
-	protected void bindPreferenceSummariesToValues() {
-		UnifiedPreferenceUtils.bindAllPreferenceSummariesToValues(this.getPreferenceScreen());
+	public void onBindPreferenceSummariesToValues() {
+		mHelper.onBindPreferenceSummariesToValues();
 	}
 }

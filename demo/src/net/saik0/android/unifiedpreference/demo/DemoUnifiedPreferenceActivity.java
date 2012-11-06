@@ -19,11 +19,12 @@ package net.saik0.android.unifiedpreference.demo;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import net.saik0.android.unifiedpreference.demo.R;
 import net.saik0.android.unifiedpreference.UnifiedPreference;
-import net.saik0.android.unifiedpreference.UnifiedPreference.Fragment;
+import net.saik0.android.unifiedpreference.UnifiedPreferenceFragment;
 import net.saik0.android.unifiedpreference.UnifiedSherlockPreferenceActivity;
 
 public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActivity {
@@ -40,6 +41,9 @@ public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActi
 		mPreferences.add(generalPreferences);
 		mPreferences.add(notificationPreferences);
 		mPreferences.add(dataSyncPreferences);
+		// Set desired preference file and mode (optional)
+		setSharedPreferencesName("unified_preference_demo");
+		setSharedPreferencesMode(Context.MODE_PRIVATE);
 	}
 	
 	@Override
@@ -52,21 +56,21 @@ public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActi
 		return R.xml.pref_headers;
 	}
 	
-	public static class GeneralPreferenceFragment extends UnifiedPreference.Fragment {
+	public static class GeneralPreferenceFragment extends UnifiedPreferenceFragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return generalPreferences;
 		}
 	}
 
-	public static class NotificationPreferenceFragment extends UnifiedPreference.Fragment {
+	public static class NotificationPreferenceFragment extends UnifiedPreferenceFragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return notificationPreferences;
 		}
 	}
 
-	public static class DataSyncPreferenceFragment extends UnifiedPreference.Fragment {
+	public static class DataSyncPreferenceFragment extends UnifiedPreferenceFragment {
 		@Override
 		public UnifiedPreference getUnifiedPreference() {
 			return dataSyncPreferences;

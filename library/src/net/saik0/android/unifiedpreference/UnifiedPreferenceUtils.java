@@ -1,7 +1,5 @@
 package net.saik0.android.unifiedpreference;
 
-import java.util.List;
-
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -9,9 +7,6 @@ import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.TwoStatePreference;
@@ -24,43 +19,10 @@ public final class UnifiedPreferenceUtils {
 	}
 
 	/**
-	 * Determines whether the simplified settings UI should be shown. This is
-	 * true if device doesn't have newer APIs like {@link PreferenceFragment},
-	 * or if forced via {@link onIsHidingHeaders}, or the device doesn't have
-	 * an extra-large screen. In these cases, a single-pane "simplified"
-	 * settings UI should be shown.
-	 */
-	public static boolean isSinglePane(PreferenceActivity activity) {
-		return Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-					|| !activity.onIsMultiPane()
-					|| activity.onIsHidingHeaders();
-	}
-
-	/**
-	 * Shows the simplified settings UI if the device configuration if the
-	 * device configuration dictates that a simplified, single-pane UI should be
-	 * shown.
-	 */
-	@SuppressWarnings("deprecation")
-	public static void getLegacyPreferencesScreen(PreferenceActivity activity, List<UnifiedPreference> prefs) {
-		// In the simplified UI, fragments are not used at all and we instead
-		// use the older PreferenceActivity APIs.
-
-		// Add all preferences
-		activity.setPreferenceScreen(activity.getPreferenceManager().createPreferenceScreen(activity));
-		for (UnifiedPreference pref : prefs ) {
-			PreferenceCategory category = new PreferenceCategory(activity);
-			category.setTitle(pref.getHeader());
-			activity.getPreferenceScreen().addPreference(category);
-			activity.addPreferencesFromResource(pref.getLayout());
-		}
-	}
-
-	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
 		@Override
 		public boolean onPreferenceChange(Preference preference, Object value) {
 			// Do not bind toggles.
