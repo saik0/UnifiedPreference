@@ -19,19 +19,37 @@ Features
 How to Use
 ==========
 
- 1. Download the jar (below) and add to you projects lib folder **OR**
-    clone the repo and add the library project as a dependency
- 1. Ensure the header strings are in your project's string resources.
- 2. Create a new preference xml file for each heading (category)
- 3. Create a headers xml file that enumerates them
- 4. Extend UnifiedPreferenceActivity
- 5. Instantiate a UnifiedPreference object for each heading and add them 
-    to a list
- 6. Implement methods getHeaders() and getPreferenceList()
- 7. Add a new fragment for each heading by extending 
-    UnifiedPreferenceFragment
+ 1. Ensure your project has one preference xml file for each desired header
+ 2. Create or modify a header xml file *using your project's own namespace*
+    for header attributes. Be sure to define preferenceRes for each.
 
-See the demo project for an example of how to use the library.
+```xml
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:unified="http://schemas.android.com/apk/res-auto" >
+
+    <header
+        unified:fragment="your.project.namespace.SampleActivity$SampleFragment"
+        unified:title="@string/pref_header_sample"
+        unified:preferenceRes="@xml/pref_sample" />
+
+</preference-headers>
+```
+
+ 3. Subclass UnifiedPreferenceActivity (or UnifiedSherlockPreferenceActivity
+    for ABS). Call setHeaderRes before super.onCreate and subclass the fragments here.
+
+```java
+public class SampleActivity extends UnifiedPreferenceActivity {
+
+	@Override public void onCreate(Bundle savedInstanceState) {
+		setHeaderRes(R.xml.pref_headers);
+		super.onCreate(savedInstanceState);
+	}
+
+	public static class SampleFragment extends UnifiedPreferenceFragment {}
+```
+
+Thats it! See the demo project for a more in depth example of how to use the library.
 
 Author
 ======
