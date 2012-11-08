@@ -35,10 +35,40 @@ import java.util.List;
 public abstract class UnifiedPreferenceActivity extends PreferenceActivity
 		implements UnifiedPreferenceContainer {
 
-	protected abstract List<UnifiedPreference> getPreferenceList();
-	protected abstract int getHeaders();
+	private UnifiedPreferenceHelper mHelper = new UnifiedPreferenceHelper(this);
 
-	private UnifiedPreferenceHelper mHelper = new UnifiedPreferenceHelper(this, getHeaders(), getPreferenceList()); 
+	/**
+	 * Determines whether the simplified settings UI should be shown. This is
+	 * true if device doesn't have newer APIs like {@link PreferenceFragment},
+	 * or if forced via {@link onIsHidingHeaders}, or the device doesn't have an
+	 * extra-large screen. In these cases, a single-pane "simplified" settings
+	 * UI should be shown.
+	 */
+	public boolean isSinglePane() {
+		return mHelper.isSinglePane();
+	}
+
+	/**
+	 * Returns the header resource to be used when building headers.
+	 * 
+	 * @return The id of the header resource
+	 */
+	@Override
+	public int getHeaderRes() {
+		return mHelper.getHeaderRes();
+	}
+
+	/**
+	 * Sets the header resource to be used when building headers.
+	 * This must be called before super.onCreate unless overriding both
+	 * {@link #onBuildHeaders(List)} and {@link #onBuildLegacyHeaders(List)}
+	 * 
+	 * @param headerRes The id of the header resource
+	 */
+	@Override
+	public void setHeaderRes(int headerRes) {
+		mHelper.setHeaderRes(headerRes);
+	}
 
 	/**
 	 * Returns the current name of the SharedPreferences file that preferences
@@ -56,7 +86,7 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity
 	 * Sets the name of the SharedPreferences file that preferences managed by
 	 * this will use.
 	 *
-	 * @param The name of the SharedPreferences file.
+	 * @param sharedPreferencesName The name of the SharedPreferences file.
 	 * @see UnifiedPreferenceHelper#setSharedPreferencesName()
 	 */
 	@Override
@@ -80,7 +110,7 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity
 	 * Sets the mode of the SharedPreferences file that preferences managed by
 	 * this will use.
 	 *
-	 * @param The mode of the SharedPreferences file.
+	 * @param sharedPreferencesMode The mode of the SharedPreferences file.
 	 * @see UnifiedPreferenceHelper#setSharedPreferencesMode()
 	 */
 	@Override
@@ -95,10 +125,37 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity
 		mHelper.onPostCreate(savedInstanceState);
 	}
 
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Called when the activity needs its list of headers built. By implementing
+	 * this and adding at least one item to the list, you will cause the
+	 * activity to run in its modern fragment mode. Note that this function may
+	 * not always be called; for example, if the activity has been asked to
+	 * display a particular fragment without the header list, there is no need
+	 * to build the headers.
+	 * 
+	 * <p>
+	 * Typical implementations will use {@link #loadHeadersFromResource} to fill
+	 * in the list from a resource. For convenience this is done if a header
+	 * resource has been set with {@link #setHeaderRes(int)}.
+	 * 
+	 * @param target The list in which to place the headers.
+	 */
 	public void onBuildHeaders(List<Header> target) {
 		mHelper.onBuildHeaders(target);
+	}
+
+	/**
+	 * Called when the activity needs its list of legacy headers built.
+	 * 
+	 * <p>
+	 * Typical implementations will use {@link #loadLegacyHeadersFromResource}
+	 * to fill in the list from a resource. For convenience this is done if a
+	 * header resource has been set with {@link #setHeaderRes(int)}.
+	 * 
+	 * @param target The list in which to place the legacy headers.
+	 */
+	public void onBuildLegacyHeaders(List<LegacyHeader> target) {
+		mHelper.onBuildLegacyHeaders(target);
 	}
 
 	/**
@@ -109,5 +166,22 @@ public abstract class UnifiedPreferenceActivity extends PreferenceActivity
 	 */
 	public void onBindPreferenceSummariesToValues() {
 		mHelper.onBindPreferenceSummariesToValues();
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public void loadHeadersFromResource(int resid, List<Header> target) {
+		mHelper.loadHeadersFromResource(resid, target);
+	}
+
+	/**
+	 * Parse the given XML file as a header description, adding each parsed
+	 * LegacyHeader into the target list.
+	 * 
+	 * @param resid The XML resource to load and parse.
+	 * @param target The list in which the parsed headers should be placed.
+	 */
+	public void loadLegacyHeadersFromResource(int resid, List<LegacyHeader> target) {
+		mHelper.loadLegacyHeadersFromResource(resid, target);
 	}
 }

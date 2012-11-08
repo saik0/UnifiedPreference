@@ -16,20 +16,22 @@
 
 package net.saik0.android.unifiedpreference;
 
-public class UnifiedPreference {
-	private final int mHeader;
-	private final int mLayout;
+import android.content.res.Resources;
 
-	public UnifiedPreference(int header, int layout) {
-		mHeader = header;
-		mLayout = layout;
-	}
+public class LegacyHeader {
+	public int titleRes;
+	public CharSequence title;
+	public int preferenceRes;
 
-	public int getHeader() {
-		return mHeader;
-	}
-
-	public int getLayout() {
-		return mLayout;
-	}
+	/**
+     * Return the currently set title.  If {@link #titleRes} is set,
+     * this resource is loaded from <var>res</var> and returned.  Otherwise
+     * {@link #title} is returned.
+     */
+    public CharSequence getTitle(Resources res) {
+        if (titleRes != 0) {
+            return res.getText(titleRes);
+        }
+        return title;
+    }
 }

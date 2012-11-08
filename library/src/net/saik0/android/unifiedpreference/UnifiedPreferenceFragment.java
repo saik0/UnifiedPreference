@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class UnifiedPreferenceFragment extends PreferenceFragment {
-	public abstract UnifiedPreference getUnifiedPreference();
+	public static final String ARG_PREFERENCE_RES = "unifiedpreference_preferenceRes";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,12 @@ public abstract class UnifiedPreferenceFragment extends PreferenceFragment {
 			preferenceManager.setSharedPreferencesMode(sharedPreferencesMode);
 		}
 
-		// Inflate from xml
-		addPreferencesFromResource(getUnifiedPreference().getLayout());
-		onBindPreferenceSummariesToValues();
+		// Inflate from preferences.xml file
+		int layoutRes = getArguments().getInt(ARG_PREFERENCE_RES, 0);
+		if (layoutRes > 0) {
+			addPreferencesFromResource(layoutRes);
+			onBindPreferenceSummariesToValues();
+		}
 	}
 
 	/**

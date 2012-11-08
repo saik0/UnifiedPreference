@@ -16,64 +16,27 @@
 
 package net.saik0.android.unifiedpreference.demo;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
 import android.os.Bundle;
 
 import net.saik0.android.unifiedpreference.demo.R;
-import net.saik0.android.unifiedpreference.UnifiedPreference;
 import net.saik0.android.unifiedpreference.UnifiedPreferenceFragment;
 import net.saik0.android.unifiedpreference.UnifiedSherlockPreferenceActivity;
 
 public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActivity {
-	private static UnifiedPreference generalPreferences;
-	private static UnifiedPreference notificationPreferences;
-	private static UnifiedPreference dataSyncPreferences;
-	private static LinkedList<UnifiedPreference> mPreferences = new LinkedList<UnifiedPreference>();
 
 	@Override public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		generalPreferences = new UnifiedPreference(R.string.pref_header_general, R.xml.pref_general);
-		notificationPreferences = new UnifiedPreference(R.string.pref_header_notifications, R.xml.pref_notification);
-		dataSyncPreferences = new UnifiedPreference(R.string.pref_header_data_sync, R.xml.pref_data_sync);
-		mPreferences.add(generalPreferences);
-		mPreferences.add(notificationPreferences);
-		mPreferences.add(dataSyncPreferences);
+		// Set header resource MUST BE CALLED BEFORE super.onCreate 
+		setHeaderRes(R.xml.pref_headers);
 		// Set desired preference file and mode (optional)
 		setSharedPreferencesName("unified_preference_demo");
 		setSharedPreferencesMode(Context.MODE_PRIVATE);
-	}
-	
-	@Override
-	protected List<UnifiedPreference> getPreferenceList() {
-		return mPreferences;
+		super.onCreate(savedInstanceState);
 	}
 
-	@Override
-	protected int getHeaders() {
-		return R.xml.pref_headers;
-	}
-	
-	public static class GeneralPreferenceFragment extends UnifiedPreferenceFragment {
-		@Override
-		public UnifiedPreference getUnifiedPreference() {
-			return generalPreferences;
-		}
-	}
+	public static class GeneralPreferenceFragment extends UnifiedPreferenceFragment {}
 
-	public static class NotificationPreferenceFragment extends UnifiedPreferenceFragment {
-		@Override
-		public UnifiedPreference getUnifiedPreference() {
-			return notificationPreferences;
-		}
-	}
+	public static class NotificationPreferenceFragment extends UnifiedPreferenceFragment {}
 
-	public static class DataSyncPreferenceFragment extends UnifiedPreferenceFragment {
-		@Override
-		public UnifiedPreference getUnifiedPreference() {
-			return dataSyncPreferences;
-		}
-	}
+	public static class DataSyncPreferenceFragment extends UnifiedPreferenceFragment {}
 }
