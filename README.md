@@ -62,11 +62,6 @@ Screenshots
 ![Framed artwork](https://raw.github.com/saik0/UnifiedPreference/website/images/framed_all.png "Framed artwork")
 
 
-Download
-========
-
-[Latest development build v0.0.1](https://github.com/downloads/saik0/UnifiedPreference/unifiedpreference-0.0.1.jar)
-
 FAQ
 ===
 
