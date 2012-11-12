@@ -16,6 +16,8 @@
 
 package net.saik0.android.unifiedpreference;
 
+import java.util.Map;
+
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -101,20 +103,13 @@ public final class UnifiedPreferenceUtils {
 	 *
 	 * @see #sBindPreferenceSummaryToValueListener
 	 */
-	private static void bindPreferenceSummaryToValue(Preference preference) {
+	private static void bindPreferenceSummaryToValue(Preference preference, Object value) {
 		// Set the listener to watch for value changes
 		preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
 		// Trigger the listener immediately with the preference's
 		// current value.
-		try {
-			sBindPreferenceSummaryToValueListener.onPreferenceChange(
-					preference,
-					preference.getSharedPreferences().getString(
-							preference.getKey(), ""));
-		} catch (ClassCastException e) {
-			// This preference does not have a String value, do nothing
-		}
+		sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, value);
 	}
 
 	/**
@@ -124,8 +119,13 @@ public final class UnifiedPreferenceUtils {
 	 * @param screen The PreferenceScreen
 	 */
 	public static void bindAllPreferenceSummariesToValues(PreferenceScreen screen) {
+		Map<String, ?> allValues = screen.getSharedPreferences().getAll();
 		for (int i = 0; i < screen.getPreferenceCount(); i++) {
-			bindPreferenceSummaryToValue(screen.getPreference(i));
+			Preference preference = screen.getPreference(i);
+			Object value = allValues.get(preference.getKey());
+			if (value != null) {
+				bindPreferenceSummaryToValue(preference, value);
+			}
 		}
 	}
 }
