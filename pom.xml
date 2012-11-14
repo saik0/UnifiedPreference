@@ -12,7 +12,7 @@
     <groupId>net.saik0.android.unifiedpreference</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
 
     <name>UnifiedPreference (Parent)</name>
     <description>A convenience library for working with all versions of the Android Preference package from API v4 and up</description>
