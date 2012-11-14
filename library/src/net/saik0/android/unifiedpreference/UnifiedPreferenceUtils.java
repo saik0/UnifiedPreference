@@ -109,7 +109,9 @@ public final class UnifiedPreferenceUtils {
 
 		// Trigger the listener immediately with the preference's
 		// current value.
-		sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, value);
+		if (value != null) {
+			sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, value);
+		}
 	}
 
 	/**
@@ -123,9 +125,7 @@ public final class UnifiedPreferenceUtils {
 		for (int i = 0; i < screen.getPreferenceCount(); i++) {
 			Preference preference = screen.getPreference(i);
 			Object value = allValues.get(preference.getKey());
-			if (value != null) {
-				bindPreferenceSummaryToValue(preference, value);
-			}
+			bindPreferenceSummaryToValue(preference, value);
 		}
 	}
 }
