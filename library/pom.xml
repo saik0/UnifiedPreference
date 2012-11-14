@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>net.saik0.android.unifiedpreference</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.3-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
