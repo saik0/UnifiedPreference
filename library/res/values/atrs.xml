@@ -4,20 +4,20 @@
          from which the selects the set of preference to dig in to. -->
     <declare-styleable name="PreferenceHeader">
         <!-- Identifier value for the header. -->
-        <attr name="id" format="integer" />
+        <attr name="up_id" format="integer" />
         <!-- The title of the item that is shown to the user. -->
-        <attr name="title" format="string" />
+        <attr name="up_title" format="string" />
         <!-- The summary for the item. -->
-        <attr name="summary" format="string" />
+        <attr name="up_summary" format="string" />
         <!-- The title for the bread crumb of this item. -->
-        <attr name="breadCrumbTitle" format="string" />
+        <attr name="up_breadCrumbTitle" format="string" />
         <!-- The short title for the bread crumb of this item. -->
-        <attr name="breadCrumbShortTitle" format="string" />
+        <attr name="up_breadCrumbShortTitle" format="string" />
         <!-- An icon for the item. -->
-        <attr name="icon" format="reference"/>
+        <attr name="up_icon" format="reference"/>
         <!-- The fragment that is displayed when the user selects this item. -->
-        <attr name="fragment" format="string" />
+        <attr name="up_fragment" format="string" />
         <!-- The resource with the PreferenceScreen to inflate. -->
-        <attr name="preferenceRes" format="reference" />
+        <attr name="up_preferenceRes" format="reference" />
     </declare-styleable>
 </resources>

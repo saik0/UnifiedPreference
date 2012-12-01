@@ -293,10 +293,10 @@ public class UnifiedPreferenceHelper {
 					TypedArray sa = mActivity.getResources().obtainAttributes(
 							attrs, R.styleable.PreferenceHeader);
 					header.id = sa.getResourceId(
-							R.styleable.PreferenceHeader_id,
+							R.styleable.PreferenceHeader_up_id,
 							(int) HEADER_ID_UNDEFINED);
 					TypedValue tv = sa
-							.peekValue(R.styleable.PreferenceHeader_title);
+							.peekValue(R.styleable.PreferenceHeader_up_title);
 					if (tv != null && tv.type == TypedValue.TYPE_STRING) {
 						if (tv.resourceId != 0) {
 							header.titleRes = tv.resourceId;
@@ -304,7 +304,7 @@ public class UnifiedPreferenceHelper {
 							header.title = tv.string;
 						}
 					}
-					tv = sa.peekValue(R.styleable.PreferenceHeader_summary);
+					tv = sa.peekValue(R.styleable.PreferenceHeader_up_summary);
 					if (tv != null && tv.type == TypedValue.TYPE_STRING) {
 						if (tv.resourceId != 0) {
 							header.summaryRes = tv.resourceId;
@@ -312,7 +312,7 @@ public class UnifiedPreferenceHelper {
 							header.summary = tv.string;
 						}
 					}
-					tv = sa.peekValue(R.styleable.PreferenceHeader_breadCrumbTitle);
+					tv = sa.peekValue(R.styleable.PreferenceHeader_up_breadCrumbTitle);
 					if (tv != null && tv.type == TypedValue.TYPE_STRING) {
 						if (tv.resourceId != 0) {
 							header.breadCrumbTitleRes = tv.resourceId;
@@ -320,7 +320,7 @@ public class UnifiedPreferenceHelper {
 							header.breadCrumbTitle = tv.string;
 						}
 					}
-					tv = sa.peekValue(R.styleable.PreferenceHeader_breadCrumbShortTitle);
+					tv = sa.peekValue(R.styleable.PreferenceHeader_up_breadCrumbShortTitle);
 					if (tv != null && tv.type == TypedValue.TYPE_STRING) {
 						if (tv.resourceId != 0) {
 							header.breadCrumbShortTitleRes = tv.resourceId;
@@ -329,9 +329,9 @@ public class UnifiedPreferenceHelper {
 						}
 					}
 					header.iconRes = sa.getResourceId(
-							R.styleable.PreferenceHeader_icon, 0);
+							R.styleable.PreferenceHeader_up_icon, 0);
 					header.fragment = sa
-							.getString(R.styleable.PreferenceHeader_fragment);
+							.getString(R.styleable.PreferenceHeader_up_fragment);
 
 					if (curBundle == null) {
 						curBundle = new Bundle();
@@ -339,7 +339,7 @@ public class UnifiedPreferenceHelper {
 
 					// Add preference resource to fragmentArgs
 					int preference = sa.getResourceId(
-							R.styleable.PreferenceHeader_preferenceRes, 0);
+							R.styleable.PreferenceHeader_up_preferenceRes, 0);
 					if (preference > 0) {
 						curBundle.putInt(
 								UnifiedPreferenceFragment.ARG_PREFERENCE_RES, preference);
@@ -432,7 +432,7 @@ public class UnifiedPreferenceHelper {
 					TypedArray sa = mActivity.getResources().obtainAttributes(
 							attrs, R.styleable.PreferenceHeader);
 					TypedValue tv = sa
-							.peekValue(R.styleable.PreferenceHeader_title);
+							.peekValue(R.styleable.PreferenceHeader_up_title);
 					if (tv != null && tv.type == TypedValue.TYPE_STRING) {
 						if (tv.resourceId != 0) {
 							header.titleRes = tv.resourceId;
@@ -441,7 +441,7 @@ public class UnifiedPreferenceHelper {
 						}
 					}
 					header.preferenceRes = sa.getResourceId(
-							R.styleable.PreferenceHeader_preferenceRes, 0);
+							R.styleable.PreferenceHeader_up_preferenceRes, 0);
 
 					sa.recycle();
 

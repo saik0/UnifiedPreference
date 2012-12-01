@@ -25,19 +25,21 @@
 	/*
 	** Header definitions are identical to android:* except for preferenceRes which should be a reference to a preference xml file
 	** Unlike the native headers these are also used for building the single pane version.
+	**
+	** As of 0.0.3 the attrs are prefixed with 'up_' for third-party library compatibility.
 	*/
     -->
     <header
-        unified:fragment="net.saik0.android.unifiedpreference.demo.DemoUnifiedPreferenceActivity$GeneralPreferenceFragment"
-        unified:title="@string/pref_header_general"
-        unified:preferenceRes="@xml/pref_general" />
+        unified:up_fragment="net.saik0.android.unifiedpreference.demo.DemoUnifiedPreferenceActivity$GeneralPreferenceFragment"
+        unified:up_title="@string/pref_header_general"
+        unified:up_preferenceRes="@xml/pref_general" />
     <header
-        unified:fragment="net.saik0.android.unifiedpreference.demo.DemoUnifiedPreferenceActivity$NotificationPreferenceFragment"
-        unified:title="@string/pref_header_notifications"
-        unified:preferenceRes="@xml/pref_notification" />
+        unified:up_fragment="net.saik0.android.unifiedpreference.demo.DemoUnifiedPreferenceActivity$NotificationPreferenceFragment"
+        unified:up_title="@string/pref_header_notifications"
+        unified:up_preferenceRes="@xml/pref_notification" />
     <header
-        unified:fragment="net.saik0.android.unifiedpreference.demo.DemoUnifiedPreferenceActivity$DataSyncPreferenceFragment"
-        unified:title="@string/pref_header_data_sync"
-        unified:preferenceRes="@xml/pref_data_sync" />
+        unified:up_fragment="net.saik0.android.unifiedpreference.demo.DemoUnifiedPreferenceActivity$DataSyncPreferenceFragment"
+        unified:up_title="@string/pref_header_data_sync"
+        unified:up_preferenceRes="@xml/pref_data_sync" />
 
 </preference-headers>
