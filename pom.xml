@@ -43,6 +43,18 @@
         </developer>
     </developers>
 
+    <contributors>
+        <contributor>
+            <name>Stefano Dacchille</name>
+            <email>stefano.dacchille@gmail.com</email>
+            <url>http://plus.google.com/109727216394332902697/</url>
+            <timezone>+1</timezone>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </contributor>
+    </contributors>
+
     <licenses>
         <license>
             <name>Apache License Version 2.0</name>
