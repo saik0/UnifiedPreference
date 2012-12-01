@@ -169,7 +169,7 @@ public class UnifiedPreferenceHelper {
 	 * shown.
 	 */
 	@SuppressWarnings("deprecation")
-	protected void onPostCreate(Bundle savedInstanceState) {
+	public void onPostCreate(Bundle savedInstanceState) {
 		if (isSinglePane()) {
 			// In the simplified UI, fragments are not used at all and we
 			// instead use the older PreferenceActivity APIs.

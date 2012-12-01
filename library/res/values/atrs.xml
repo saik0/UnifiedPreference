@@ -4,9 +4,9 @@
          from which the selects the set of preference to dig in to. -->
     <declare-styleable name="PreferenceHeader">
         <!-- Identifier value for the header. -->
-        <attr name="id" format="integer"/>
+        <attr name="id" format="integer" />
         <!-- The title of the item that is shown to the user. -->
-        <attr name="title" />
+        <attr name="title" format="string" />
         <!-- The summary for the item. -->
         <attr name="summary" format="string" />
         <!-- The title for the bread crumb of this item. -->
@@ -14,7 +14,7 @@
         <!-- The short title for the bread crumb of this item. -->
         <attr name="breadCrumbShortTitle" format="string" />
         <!-- An icon for the item. -->
-        <attr name="icon" />
+        <attr name="icon" format="reference"/>
         <!-- The fragment that is displayed when the user selects this item. -->
         <attr name="fragment" format="string" />
         <!-- The resource with the PreferenceScreen to inflate. -->

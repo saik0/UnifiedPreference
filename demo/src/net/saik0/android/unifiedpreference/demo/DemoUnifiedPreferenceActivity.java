@@ -21,9 +21,9 @@ import android.os.Bundle;
 
 import net.saik0.android.unifiedpreference.demo.R;
 import net.saik0.android.unifiedpreference.UnifiedPreferenceFragment;
-import net.saik0.android.unifiedpreference.UnifiedSherlockPreferenceActivity;
+import net.saik0.android.unifiedpreference.UnifiedPreferenceActivity;
 
-public class DemoUnifiedPreferenceActivity extends UnifiedSherlockPreferenceActivity {
+public class DemoUnifiedPreferenceActivity extends UnifiedPreferenceActivity {
 
 	@Override public void onCreate(Bundle savedInstanceState) {
 		// Set header resource MUST BE CALLED BEFORE super.onCreate 
