@@ -24,3 +24,7 @@
 
 # Windows files
 Thumbs.db
+
+#Gradle
+.gradle
+build
