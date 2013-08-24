@@ -23,12 +23,15 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.TwoStatePreference;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.widget.EditText;
 
 public final class UnifiedPreferenceUtils {
 
@@ -83,6 +86,15 @@ public final class UnifiedPreferenceUtils {
 								.getTitle(preference.getContext());
 						preference.setSummary(name);
 					}
+				}
+			} else if (preference instanceof EditTextPreference) {
+				EditText internalEditText = ((EditTextPreference) preference).getEditText();
+				int inputType = internalEditText.getInputType();
+				if (((inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) != 0) ||
+						((inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD) != 0)) {
+					// do not change summaries for passwords
+				} else {
+					preference.setSummary(stringValue);
 				}
 
 			} else {
